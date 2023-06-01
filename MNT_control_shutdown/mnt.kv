@@ -1,0 +1,139 @@
+<MainWindow>:
+    name: "main"
+
+
+    GridLayout:
+        #spacing: dp(25)
+        rows: 2
+
+
+        ActionBar:
+            id: a_bar
+            size_hint_y: None
+            size: root.width , dp(50)
+            #pos: 0, root.height - self.height
+
+            ActionView:
+                ActionPrevious:
+                    title: "MNT"
+                    with_previous : False
+
+                ActionButton:
+                    icon : "Images/btn_update.png"
+                    on_release:
+                        app.root.current = "main"
+                        root.load_file()
+
+
+                ActionButton:
+                    icon : "Images/btn_app.png"
+                    on_release:
+                        app.root.current = "add"
+
+        ScrollView:
+            do_scroll_y: True
+            bar_width: dp(10)
+            BoxLayout:
+                id: box
+                padding: dp(20)
+                size_hint_y: None
+                #height: dp(170)
+                orientation: 'vertical'
+                #pos: 0, -2000 #root.height - (box.height + a_bar.height)
+
+<GridLayout_Table>:
+
+    cols: 3
+    size_hint_y: None
+    height: 150
+    BoxLayout:
+        orientation: "vertical"
+        size_hint_x: None
+        width: 200
+
+        Label:
+            id: la1
+            text: "Дата"
+            size_hint_y: None
+            height: 60
+        Label:
+            id: la2
+            text: "Производство"
+            size_hint_y: None
+            height: 60
+        BoxLayout:
+
+    TextInput:
+        id: inp
+        text: "Комментарий"
+    Button:
+        text: ">>"
+        size_hint_x: None
+        width: 100
+        on_release:
+            root.view_wr()
+
+
+<AddWindow>:
+    name: "add"
+
+    GridLayout:
+        cols: 2
+        rows: 4
+
+        padding: 20
+        spacing: 30
+
+        Label:
+            text: "Дата"
+            halign: "left"
+            text_size: self.size
+
+        TextInput:
+            multiline: False
+            id: txt_date
+
+
+
+
+        Label:
+            text: "Подразделение"
+
+        TextInput:
+            multiline: False
+            id: txt_prd
+
+
+
+        Label:
+            text: "Комментарий"
+
+        TextInput:
+            multiline: False
+            id: txt_comment
+
+
+        FloatLayout:
+
+            Button:
+                id: back_btn
+                text: "Назад"
+                font_size: 24
+                size_hint: .25, .25
+                pos: 20, 20
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "down"
+
+            Button:
+                text: "ОК"
+                font_size: 24
+                size_hint: .25, .25
+                pos: 120, 20
+                on_press:
+                    root.input_inform()
+                    root.save_data()
+
+                  # разобраться с нажатием кнопки  back_btn.
+                    app.root.current = "main"
+                    app.main.load_file()
